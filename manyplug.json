@@ -1,13 +1,13 @@
 {
   "name": "welcome",
   "key": "synt-xerror/welcome",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sends a custom image card and configurable text messages when someone joins a WhatsApp group. Fully configured via chat, no config file editing.",
   "category": "admin",
   "author": {
-      "name": "synt-xerror",
-      "email": "me@stxerr.dev",
-      "website": "https://www.stxerr.dev"
+    "name": "synt-xerror",
+    "email": "me@stxerr.dev",
+    "website": "https://www.stxerr.dev"
   },
   "license": "MIT",
   "repo": "https://github.com/synt-xerror/welcome.many",
