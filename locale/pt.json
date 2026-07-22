@@ -1,0 +1,140 @@
+{
+  "plugin": {
+    "name": "welcome",
+    "description": "Plugin welcome para ManyBot"
+  },
+  "help": {
+    "text": "🤖 *Welcome — comandos*\n\n🆕 \"!welcome config\"\nConfiguração guiada, passo a passo.\n\n📋 \"!welcome status\"\nMostra a configuração atual deste grupo.\n\n🧪 \"!welcome test\"\nEnvia uma prévia no chat atual, sem afetar os grupos de verdade.\n\n🧪 \"!welcome test grupo\"\nRoda um teste real nos grupos configurados (marcado como teste), usando seus próprios dados.\n\n✏️ \"!welcome set <campo> <valor>\"\nMuda só um item, sem refazer tudo.\nCampos: {{fields}}\n\nExemplos:\n• \"!welcome set comunidade Galera do Vôlei\"\n• \"!welcome set fundo gradiente #1f1147 #3a1c71\"\n• envie uma imagem com a legenda \"!welcome set fundo\" para usar como fundo\n• \"!welcome set fundo escurecer 40\" (0 a 100, só com fundo de imagem)\n• \"!welcome set fonte serifa\" (opções: padrao, serifa, monoespacada)\n• envie uma imagem com a legenda \"!welcome set avatar\" para usar como foto padrão de quem não tem foto de perfil\n• \"!welcome set addgrupo\" (sem valor — eu te guio)\n\n🗑️ \"!welcome reset\"\nApaga a configuração deste grupo.\n\n👉 Primeira vez? Rode \"!welcome config\" dentro do grupo que você quer que eu vigie — eu guio você em cada passo."
+  },
+  "stepHeader": "🧭 *Passo {{step}}/{{total}} — {{label}}*",
+  "prompts": {
+    "watchGroup": {
+      "label": "Grupo monitorado",
+      "body": "👋 Vamos configurar o bot de boas-vindas! É rápido — eu guio você em cada passo, sem precisar saber nada antes.\n\nPara começar, mande *qualquer mensagem* dentro do grupo que você quer que eu vigie (quando alguém entrar nele, eu aviso). Em comunidades, use o grupo de anúncios.\n\n_Dica: digite \"cancelar\" a qualquer momento para sair sem salvar._"
+    },
+    "cardTarget": {
+      "label": "Grupo do card",
+      "body": "Em qual grupo devo enviar o card de boas-vindas (a imagem)?\n\n➜ Mande uma mensagem lá dentro\n➜ ou digite \"pular\" para usar o mesmo grupo de antes"
+    },
+    "communityName": {
+      "label": "Nome da comunidade",
+      "body": "Qual o nome da sua comunidade/grupo? Esse nome aparece no card.\n\n➜ Digite o nome\n➜ ou \"pular\" para usar o nome do próprio grupo"
+    },
+    "cardBackground": {
+      "label": "Fundo do card",
+      "body": "Escolha o visual do card:\n\n🎨 \"pular\" → tema roxo (padrão)\n🎨 um tema pronto: {{themes}}\n🎨 uma cor com gradiente automático: um #hex, ex. #1f1147\n🎨 uma cor sólida (sem gradiente): \"sólido #hex\"\n🎨 um gradiente com 2 cores à sua escolha: \"gradiente #hex1 #hex2\"\n🎨 ou envie uma foto/imagem para usar como fundo"
+    },
+    "cardFrame": {
+      "label": "Moldura",
+      "body": "Agora a moldura da foto de perfil:\n\n🔲 \"pular\" → círculo (padrão)\n🔲 ou uma dessas: {{frames}}"
+    },
+    "cardMessage": {
+      "label": "Mensagem do card",
+      "body": "Qual mensagem devo enviar *junto com o card*?\n\nUse \"{nome}\" e \"{comunidade}\" onde quiser.\nDigite \"padrão\" para usar esta:\n\n{{defaultMessage}}"
+    },
+    "smallWelcome": {
+      "label": "Boas-vindas simples",
+      "body": "Além do card, quer avisar em *outros* grupos quando alguém entrar (sem imagem, só texto)?\n\n➜ Se sim: mande uma mensagem em cada um desses grupos\n➜ Se não: digite \"pronto\" para pular este passo"
+    },
+    "smallWelcomeMessage": {
+      "label": "Texto das boas-vindas simples",
+      "body": "Qual mensagem devo enviar nesses grupos extras (sem o card)?\n\nUse \"{nome}\" e \"{comunidade}\" onde quiser, ou digite \"padrão\" para reaproveitar a mensagem do card."
+    },
+    "addGroups": {
+      "label": "Adição automática",
+      "body": "Quer que eu adicione a pessoa automaticamente em *outro* grupo assim que ela entrar (só 1, por segurança da conta)?\n\n➜ Se sim: mande uma mensagem dentro desse grupo\n➜ Se não: digite \"pronto\" para pular este passo"
+    },
+    "dmMessage": {
+      "label": "Mensagem no PV",
+      "body": "Último bloco: mensagem que eu envio no privado da pessoa, dando boas-vindas.\n\nUse \"{nome}\" onde quiser o nome dela.\nDigite \"padrão\" para usar a mensagem abaixo, ou \"nenhuma\" para não enviar PV nenhum:\n\n{{defaultMessage}}"
+    },
+    "dmFailMessage": {
+      "label": "Mensagem de falha no PV",
+      "body": "Se eu não conseguir adicionar a pessoa automaticamente em algum grupo (passo anterior), quer enviar uma mensagem extra no PV junto com os links de convite?\n\nUse \"{nome}\" se quiser, ou digite \"pular\" para não enviar nada além dos links."
+    }
+  },
+  "wizard": {
+    "cancelled": "❌ Configuração cancelada.",
+    "editCancelled": "❌ Edição cancelada.",
+    "timeout": "⏱️ Configuração encerrada por inatividade (10 minutos sem resposta).",
+    "needGroupWatch": "⚠️ Isso precisa ser enviado *dentro de um grupo*.\n\nAbra o grupo que você quer vigiar e mande qualquer mensagem lá.",
+    "reattached": "🔗 Esse grupo já tinha uma configuração — religuei ela a *este chat*, sem mudar mais nada.\n\n{{status}}",
+    "needGroupCardTarget": "⚠️ Isso precisa ser um grupo.\n\nMande uma mensagem dentro dele, ou digite \"pular\" para usar o mesmo grupo de antes.",
+    "backgroundInvalid": "⚠️ Não entendi. Digite \"padrão\", um tema, um #hex, \"sólido #hex\", \"gradiente #hex1 #hex2\", ou envie uma imagem.",
+    "frameInvalid": "⚠️ Não entendi. Digite \"padrão\" ou uma dessas opções: {{frames}}.",
+    "smallWelcomeAdded": "✅ Adicionado: \"{{name}}\".\nMande outro grupo ou digite \"pronto\".",
+    "smallWelcomeNeedGroup": "⚠️ Mande uma mensagem *dentro do grupo* que você quer avisar, ou digite \"pronto\" para pular este passo.",
+    "addGroupOnlyOne": "⚠️ Só é possível adicionar automaticamente em *um* grupo (por segurança da conta).\n\nDigite \"pronto\" para continuar.",
+    "addGroupAdded": "✅ Adicionado: \"{{name}}\".\nDigite \"pronto\" para continuar.",
+    "addGroupNeedGroup": "⚠️ Mande uma mensagem *dentro do grupo* que você quer adicionar automaticamente, ou digite \"pronto\" para pular este passo.",
+    "savedSuccess": "🎉 *Configuração salva com sucesso!*\n\n{{status}}",
+    "alreadyInProgress": "⚠️ Você já tem uma configuração ou edição em andamento.\n\nDigite \"cancelar\" nesse chat, ou espere expirar.",
+    "startConfigNeedGroup": "⚠️ Rode esse comando dentro do grupo que vai iniciar a configuração."
+  },
+  "status": {
+    "needGroup": "⚠️ Rode esse comando dentro do grupo que você quer consultar.",
+    "notConfigured": "Este grupo ainda não tem configuração.\n\nRode \"!welcome config\" para criar uma.",
+    "title": "📋 *Configuração deste grupo*\n\n*Grupo e card*\n👀 Monitorando: {{watchGroup}}\n🖼️ Card enviado em: {{cardTarget}}\n🏷️ Nome da comunidade: {{community}}\n🎨 Fundo: {{background}}\n🔲 Moldura: {{frame}}\n🔤 Fonte: {{font}}\n🙂 Foto de fallback: {{avatarFallback}}\n💌 Mensagem do card: {{cardMessage}}\n\n*Extras*\n💬 Boas-vindas simples em: {{smallGroups}}\n📝 Texto simples: {{smallMessage}}\n➕ Adição automática em: {{addGroups}}\n✉️ Mensagem no PV: {{dmMessage}}\n⚠️ Mensagem de falha no PV: {{dmFailMessage}}\n\n_Use \"!welcome set <campo> <valor>\" para mudar um item ({{fields}}), \"!welcome test\" para uma prévia, ou \"!welcome reset\" para apagar tudo._",
+    "custom": "personalizada",
+    "default": "padrão",
+    "defaultSameAsCard": "padrão (igual ao card)",
+    "enabled": "ativada",
+    "disabled": "desativada",
+    "none": "nenhum grupo",
+    "backgroundDefault": "tema \"{{theme}}\" (padrão)",
+    "backgroundTheme": "tema \"{{theme}}\"",
+    "backgroundColor": "cor {{color}} (gradiente automático)",
+    "backgroundSolid": "cor sólida {{color}}",
+    "backgroundGradient": "gradiente {{a}} → {{b}}",
+    "backgroundImage": "imagem personalizada (escurecimento {{pct}}%)"
+  },
+  "reset": {
+    "needGroup": "⚠️ Rode esse comando dentro do grupo que você quer resetar.",
+    "nothing": "Este grupo não tem nenhuma configuração para apagar.",
+    "confirmNeeded": "⚠️ *Atenção*\nIsso apaga toda a configuração de boas-vindas deste grupo.\n\nTem certeza? Digite \"!welcome reset confirmar\" para apagar de vez.",
+    "done": "✅ Configuração apagada.\n\nRode \"!welcome config\" quando quiser configurar de novo."
+  },
+  "set": {
+    "needGroup": "⚠️ Rode esse comando dentro do grupo configurado.",
+    "notConfigured": "Este grupo ainda não tem configuração.\n\nRode \"!welcome config\" primeiro.",
+    "invalidField": "⚠️ Campo inválido.\n\nUse um destes: {{fields}}.\nEx: \"!welcome set moldura neon\"",
+    "updated": "✅ *Atualizado!*\n\n{{status}}"
+  },
+  "quickEdit": {
+    "title": "🔧 *Editando \"{{field}}\"*\n\n{{prompt}}\n\n_Digite \"cancelar\" para sair sem mudar nada._",
+    "configGone": "⚠️ Essa configuração não existe mais."
+  },
+  "applySet": {
+    "imageDownloadFail": "⚠️ Não consegui baixar essa imagem, tente novamente.",
+    "darkenOnlyImage": "⚠️ Isso só se aplica a um fundo de imagem.\n\nMande uma imagem primeiro com a legenda \"!welcome set fundo\".",
+    "backgroundInvalid": "⚠️ Não entendi o fundo.\n\nUse um tema ({{themes}}), um #hex, \"sólido #hex\", \"gradiente #hex1 #hex2\", ou mande a imagem com a legenda \"!welcome set fundo\".",
+    "frameInvalid": "⚠️ Moldura inválida.\n\nUse uma dessas: {{frames}}.",
+    "fontInvalid": "⚠️ Fonte inválida.\n\nUse uma dessas: {{fonts}}.",
+    "avatarNeedsImage": "⚠️ Envie uma imagem junto com \"!welcome set avatar\" para usar como foto padrão, ou digite \"!welcome set avatar padrão\" para voltar a usar a foto padrão do plugin.",
+    "addgroupNeedsGroup": "⚠️ Esse campo precisa ser definido de dentro do grupo desejado.\n\nDigite só \"!welcome set addgroup\" (sem valor) que eu te guio, ou \"!welcome set addgroup nenhum\" para desativar."
+  },
+  "circuitBreaker": {
+    "alert": "⚠️ *Adição automática pausada*\n\nMuitas falhas seguidas ao adicionar pessoas em grupos. Desliguei essa função por {{minutes}} minutos para proteger o número (geralmente é o WhatsApp bloqueando adições em massa). Vou usar link de convite nesse período."
+  },
+  "test": {
+    "notConfigured": "⚠️ Este chat não tem uma configuração associada.\n\nRode \"!welcome config\" dentro do grupo configurado, ou confira com \"!welcome status\".",
+    "previewHeader": "🧪 *Prévia do welcome*\n\nIsso é só uma simulação, usando seus próprios dados de contato — nada foi enviado para os grupos de verdade.",
+    "previewCardLabel": "🧪 Card que seria enviado em \"{{target}}\":",
+    "previewSmallLabel": "🧪 Boas-vindas simples que seriam enviadas em \"{{target}}\":",
+    "previewNoSmall": "🧪 Nenhum grupo de boas-vindas simples configurado.",
+    "previewDmLabel": "🧪 Mensagem que seria enviada no PV:",
+    "previewNoDm": "🧪 Mensagem no PV desativada — nada seria enviado.",
+    "previewFooter": "✅ Prévia concluída. Nada foi enviado para os grupos configurados.",
+    "realHeader": "🧪 *Teste real* — enviando para os grupos configurados de verdade, usando seus próprios dados. Cada mensagem vai marcada como teste.",
+    "realCaptionPrefix": "🧪 _(mensagem de teste — ignore)_\n\n",
+    "realDone": "✅ Teste real concluído. Confira os grupos configurados."
+  },
+  "defaults": {
+    "dmMessage": "Olá, *{nome}*! Seja bem-vindo(a) ao nosso grupo! 👋\n\nUm resumo rápido das regras:\n\n• Sem NSFW e humor negro\n• Sem trava-zap, flood ou conteúdo irritante\n• Mantenha os assuntos dentro do tópico\n\nEspero que você goste do nosso grupo!",
+    "cardMessage": "🎉 Bem-vindo(a), *{nome}*!\nVocê agora faz parte de *{comunidade}*.",
+    "failIntro": "Não consegui te adicionar automaticamente em alguns grupos. Entre por esses convites:",
+    "cardSubtitle": "entrou em {{community}}",
+    "cardHeader": "BEM-VINDO",
+    "fallbackName": "novo membro"
+  }
+}

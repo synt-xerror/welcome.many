@@ -1,0 +1,7 @@
+node_modules/
+package-lock.json
+*.log
+.vscode/
+.DS_Store
+coverage/
+# DO NOT put manyplug.json here. It needs to be on the repository.

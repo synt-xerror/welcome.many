@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "@manybot/types": "^1.0.0"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.2"
+  }
+}
