@@ -53,7 +53,7 @@ hand.
     !welcome config          — guided setup for a new group (or reconfigure an existing one)
     !welcome status          — show the current configuration for this group
     !welcome test            — preview in the current chat only, no side effects
-    !welcome test grupo      — real test in the configured groups, marked as a test, but doesn't execute the autoadd
+    !welcome test grupo      — real test in the configured groups, marked as a test
     !welcome set <field> <value> — edit a single field
     !welcome reset           — delete this group's configuration
 

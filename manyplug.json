@@ -1,7 +1,7 @@
 {
   "name": "welcome",
   "key": "synt-xerror/welcome",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Sends a custom image card and configurable text messages when someone joins a WhatsApp group. Fully configured via chat, no config file editing.",
   "category": "admin",
   "author": {

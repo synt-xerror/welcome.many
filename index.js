@@ -1199,7 +1199,10 @@ export async function setup(ctx) {
     for (const userId of participants) {
       ctx.log.info(`welcome: processando userId="${userId}"`);
 
-      const contact = await ctx.contacts.get(userId, { groupId });
+      const contact = await ctx.contacts.get(userId).catch((err) => {
+        ctx.log.warn(`welcome: ctx.contacts.get falhou para "${userId}" — ${err.message}`);
+        return null;
+      });
       const assets = await renderMemberCard(ctx, config, userId, contact, t);
 
       try {
@@ -1293,7 +1296,9 @@ async function runPreviewTest(ctx, config, assets, t) {
 
 /**
  * Teste REAL: roda o mesmo pipeline do evento de entrada de verdade — envia
- * mensagem marcada como teste (pra quem estiver no grupo não acharque
+ * pros grupos configurados, tenta adicionar em addGroupIds, manda PV — mas
+ * usando os dados de quem rodou o comando como "novo membro", e com cada
+ * mensagem marcada como teste (pra quem estiver no grupo não achar que
  * alguém entrou de fato).
  *
  * @param {PluginContext} ctx
@@ -1328,19 +1333,19 @@ async function runRealTest(ctx, config, userId, contact, assets, t) {
   }
 
   if (config.addGroupIds.length) {
-    const contactId = contact?.id ?? userId;
-    const failedLinks = [];
+    const results = [];
     for (const destGroupId of config.addGroupIds) {
-      const link = await tryAddToGroup(ctx, contactId, destGroupId, config.configChatId);
-      if (link) failedLinks.push(link);
+      const link = await getInviteLinkSafe(ctx, destGroupId);
+      results.push(
+        link
+          ? t("test.addGroupLinkOk", { target: chatLabel(ctx, destGroupId), link })
+          : t("test.addGroupLinkFail", { target: chatLabel(ctx, destGroupId) })
+      );
     }
-    if (failedLinks.length) {
-      const intro = config.dmFailMessage ? fillTemplate(config.dmFailMessage, assets.templateVars) : t("defaults.failIntro");
-      try {
-        await ctx.send.to(userId).text(prefix + `${intro}\n\n${failedLinks.join("\n")}`);
-      } catch (err) {
-        ctx.log.warn(`welcome: teste real falhou ao enviar convites — ${err.message}`);
-      }
+    try {
+      await ctx.send.to(userId).text(`${prefix}${t("test.addGroupCheckHeader")}\n\n${results.join("\n\n")}`);
+    } catch (err) {
+      ctx.log.warn(`welcome: teste real falhou ao enviar checagem de addgroup — ${err.message}`);
     }
   }
 
